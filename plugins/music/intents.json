@@ -1,0 +1,31 @@
+[{
+    "subject":"playMusic",
+    "sentences": ["Joue le son", "Joue une musique", "Joue la musique"],
+    "responses": ["Ok"],
+    "value": 0,
+    "type":"action"
+},{
+    "subject":"stopMusic",
+    "sentences": ["Stop le son", "Arrete le son", "Stop la musique", "Arrete la musique"],
+    "responses": ["Ok"],
+    "value": 0,
+    "type":"action"
+},{
+    "subject":"nextMusic",
+    "sentences": ["Musique suivante", "Son suivant"],
+    "responses": ["Ok"],
+    "value": 0,
+    "type":"action"
+},{
+    "subject":"previousMusic",
+    "sentences": ["Musique precedente", "Son precedent"],
+    "responses": ["Ok"],
+    "value": 0,
+    "type":"action"
+},{
+    "subject":"changeMusic",
+    "sentences": ["Change la musique", "Change de son"],
+    "responses": ["Ok"],
+    "value": 0,
+    "type":"action"
+}]
