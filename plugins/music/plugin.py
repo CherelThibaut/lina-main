@@ -1,13 +1,17 @@
+from pickle import NONE
 import time
 import sys
 sys.path.append('../../')
 from pluginDefault import PluginDefault
 import os
+import spotipy
+from spotipy.oauth2 import SpotifyClientCredentials
 
-
+sp = spotipy.Spotify(auth_manager=SpotifyClientCredentials(client_id="3dcc322052204aaabb826fd0f291fbe2",
+                                                           client_secret="6785405bc604405c8a3d9b3243577f14"))
 
 class PluginMusic(PluginDefault):
-
+    
     def response(self, sentence=""):
         themeName= self.subject.split(".")[1]
         if themeName == "soundUp":
@@ -26,6 +30,14 @@ class PluginMusic(PluginDefault):
             else: 
                 os.system("setvol unmute")
             type(self)._isMute= not  type(self)._isMute
+        elif themeName =="playMusic":
+            results = sp.search(q='Démons',limit=5)
+            for idx, track, in enumerate(results['tracks']['items']):
+                print(idx,track['name'],track['id'])
+                id = track['id']
+                sp.add_to_queue(id, device_id=NONE)
             return "Ok"
+        
 
-    
+
+  
