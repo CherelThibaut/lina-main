@@ -7,8 +7,8 @@ import os
 import spotipy
 from spotipy.oauth2 import SpotifyClientCredentials
 
-sp = spotipy.Spotify(auth_manager=SpotifyClientCredentials(client_id="3dcc322052204aaabb826fd0f291fbe2",
-                                                           client_secret="6785405bc604405c8a3d9b3243577f14"))
+sp = spotipy.Spotify(auth_manager=SpotifyClientCredentials(client_id="",
+                                                           client_secret=""))
 
 class PluginMusic(PluginDefault):
     
