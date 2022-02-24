@@ -6,9 +6,20 @@ from pluginDefault import PluginDefault
 import os
 import spotipy
 from spotipy.oauth2 import SpotifyClientCredentials
+import spotipy.util as util
 
-sp = spotipy.Spotify(auth_manager=SpotifyClientCredentials(client_id="",
-                                                           client_secret=""))
+scope = 'user-library-read'
+scope = 'playlist-modify-public'
+
+CLIENT_ID = 'd36e56f267a34540b2a1d973ac1edc93'
+CLIENT_SECRET = 'e1a4b0ae31b34315a233048fdd9b5ca3'
+REDIRECT_URI = 'localhost:4200/'
+
+token = util.prompt_for_user_token(scope,
+                                   client_id=CLIENT_ID,
+                                   client_secret=CLIENT_SECRET)
+sp = spotipy.Spotify(auth=token)
+
 
 class PluginMusic(PluginDefault):
     
