@@ -1,12 +1,29 @@
 import { Component } from '@angular/core';
-import { Track } from 'ngx-audio-player';   
+import { Track } from 'ngx-audio-player';
+import { DataService } from './services/data.service';
+import { WebsocketService } from './services/websocket.service';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  styleUrls: ['./app.component.css'],
+  providers: [WebsocketService, DataService]
 })
+
 export class AppComponent {
+
+constructor(private dataservice:DataService) {
+  dataservice.messages.subscribe(msg => {
+  console.log("Response from websocket: " + msg);
+  });
+}
+
+ngOnInit(): void {
+  this.dataservice.getData().subscribe((data) => {
+    console.log(data);
+  });
+}
+
   title = 'lina-front';
 
   msaapDisplayTitle = true;
