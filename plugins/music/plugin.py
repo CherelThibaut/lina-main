@@ -1,5 +1,6 @@
 from pickle import NONE
 import time
+import requests
 import sys
 sys.path.append('../../')
 from pluginDefault import PluginDefault
@@ -33,11 +34,19 @@ class PluginMusic(PluginDefault):
             nameMusic = sentence.split()
             lastWord = nameMusic[-1:]
             results = spotify.search(q=str(lastWord),limit=5)
+            json = "{ 'track' : ["
+            first = True
             for idx, track, in enumerate(results['tracks']['items']):
-                id = track['id']
                 if (track['preview_url'] is not None) :
-                    print(track['preview_url'])
-                    spotify.add_to_queue(id, device_id=NONE)
+                    if(first):
+                        json += "{ 'name' : '"+str(track['name'])+"',"
+                        first = False
+                    else:
+                        json += ",{ 'name' : '"+str(track['name'])+"',"
+                    json += " 'song' : '"+str(track['preview_url'])+"' }"
+            json += "]}"
+            print(json)
+            r = requests.post('http://localhost:4200/', json={"key": json})
             return "Ok"
         
 
