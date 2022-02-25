@@ -18,7 +18,19 @@ app.ws('/', function(ws, req) {
     });
     console.log('socket', req.testing);
   });
+
+  app.ws('/test', function(ws, req) {
+    ws.send('message', function(msg) {
+      console.log(msg);
+    });
+  });
   
+app.get('/plugindata', GetData);
+
+function GetData(data){
+  response = JSON.parse(data);
+  console.log(response.song);
+}
 // Function callName() is executed whenever
 // url is of the form localhost:3000/name 
 app.get('/correction', callCorrection); 

@@ -6,6 +6,7 @@ sys.path.append('../../')
 from pluginDefault import PluginDefault
 import os
 import spotipy
+import json
 from spotipy.oauth2 import SpotifyClientCredentials
 
 spotify = spotipy.Spotify(client_credentials_manager=SpotifyClientCredentials())
@@ -34,19 +35,20 @@ class PluginMusic(PluginDefault):
             nameMusic = sentence.split()
             lastWord = nameMusic[-1:]
             results = spotify.search(q=str(lastWord),limit=5)
-            json = "{ 'track' : ["
+            json_string = "{ 'track' : ["
             first = True
             for idx, track, in enumerate(results['tracks']['items']):
                 if (track['preview_url'] is not None) :
                     if(first):
-                        json += "{ 'name' : '"+str(track['name'])+"',"
+                        json_string += "{ 'name' : '"+str(track['name'])+"',"
                         first = False
                     else:
-                        json += ",{ 'name' : '"+str(track['name'])+"',"
-                    json += " 'song' : '"+str(track['preview_url'])+"' }"
-            json += "]}"
-            print(json)
-            r = requests.post('http://localhost:4200/', json={"key": json})
+                        json_string += ",{ 'name' : '"+str(track['name'])+"',"
+                    json_string += " 'song' : '"+str(track['preview_url'])+"' }"
+            json_string += "]}"
+            json_object = json.dumps(json_string)
+            print(json_object)
+            r = requests.post('http://localhost:3000/plugindata', json_object)
             return "Ok"
         
 
