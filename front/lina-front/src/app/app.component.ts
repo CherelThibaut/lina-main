@@ -18,6 +18,18 @@ constructor(private dataservice:DataService) {
   });
 }
 
+private message = {
+  title: "tutorialedge",
+  message: "this is a test message",
+  song: "https://p.scdn.co/mp3-preview/c4a9dd0d7877c92696fed1ffe54218b79d7fda53?cid=d36e56f267a34540b2a1d973ac1edc93"
+};
+
+sendMsg() {
+  console.log("new message from client to websocket: ", this.message);
+  this.dataservice.messages.next(this.message);
+  this.message.message = "";
+}
+
 ngOnInit(): void {
   this.dataservice.getData().subscribe((data) => {
     console.log(data);
