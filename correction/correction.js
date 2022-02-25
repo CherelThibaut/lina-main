@@ -1,13 +1,23 @@
 // import express JS module into app 
 // and creates its variable. 
-var express = require('express'); 
-var app = express(); 
-  
+var express = require('express');
+const { send } = require('process');
+var app = express();
+var expressWs = require('express-ws')(app);
+
+
 // Creates a server which runs on port 3000 and  
 // can be accessed through localhost:3000 
 app.listen(3000, function() { 
     console.log('server running on port 3000'); 
 } ) 
+
+app.ws('/', function(ws, req) {
+    ws.on('message', function(msg) {
+      console.log(msg);
+    });
+    console.log('socket', req.testing);
+  });
   
 // Function callName() is executed whenever
 // url is of the form localhost:3000/name 

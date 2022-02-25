@@ -30,10 +30,23 @@ sendMsg() {
   this.message.message = "";
 }
 
+inMessagePre: any;
+
+onMsg(event:any):void{
+  console.log("connected");
+  let incomingdata = JSON.parse(event.data.toString());
+    /*let data:any = null;
+    for (let index = 0; index < incomingdata.length; index++) {
+        data = incomingdata[index];
+        display(this.inMessagePre,JSON.stringify(incomingdata[index], undefined, 2));
+    }*/
+  console.log(incomingdata);
+}
+
 ngOnInit(): void {
-  this.dataservice.getData().subscribe((data) => {
+  /*this.dataservice.getData().subscribe((data) => {
     console.log(data);
-  });
+  });*/
 }
 
   title = 'lina-front';
