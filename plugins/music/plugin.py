@@ -6,20 +6,8 @@ from pluginDefault import PluginDefault
 import os
 import spotipy
 from spotipy.oauth2 import SpotifyClientCredentials
-import spotipy.util as util
 
-scope = 'user-library-read'
-scope = 'playlist-modify-public'
-
-CLIENT_ID = 'd36e56f267a34540b2a1d973ac1edc93'
-CLIENT_SECRET = 'e1a4b0ae31b34315a233048fdd9b5ca3'
-REDIRECT_URI = 'localhost:4200/'
-
-token = util.prompt_for_user_token(scope,
-                                   client_id=CLIENT_ID,
-                                   client_secret=CLIENT_SECRET)
-sp = spotipy.Spotify(auth=token)
-
+spotify = spotipy.Spotify(client_credentials_manager=SpotifyClientCredentials())
 
 class PluginMusic(PluginDefault):
     
@@ -42,11 +30,14 @@ class PluginMusic(PluginDefault):
                 os.system("setvol unmute")
             type(self)._isMute= not  type(self)._isMute
         elif themeName =="playMusic":
-            results = sp.search(q='Démons',limit=5)
+            nameMusic = sentence.split()
+            lastWord = nameMusic[-1:]
+            results = spotify.search(q=str(lastWord),limit=5)
             for idx, track, in enumerate(results['tracks']['items']):
-                print(idx,track['name'],track['id'])
                 id = track['id']
-                sp.add_to_queue(id, device_id=NONE)
+                if (track['preview_url'] is not None) :
+                    print(track['preview_url'])
+                    spotify.add_to_queue(id, device_id=NONE)
             return "Ok"
         
 
