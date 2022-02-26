@@ -3,8 +3,9 @@
 var express = require('express');
 const { stringify } = require('querystring');
 var app = express();
-var expressWs = require('express-ws')(app);
+const Websocket = require('ws');
 app.use(express.json());
+const wss = new Websocket.Server({ port: 8081 });
 
 /*app.ws('/', function(ws, req) {
     ws.on('message', function(msg) {
@@ -24,11 +25,18 @@ JsonString = {}
 //recupere la question poser
 question = {}
 
-app.ws('/', function(ws, req) {
+/*app.ws('/', function(ws, req) {
   jsondata = JSON.stringify(JsonString)
   dataobject = JSON.parse(jsondata)
   ws.send(jsondata);
-});
+});*/
+
+wss.on('connection', (ws) => {
+  ws.on("message", msg => {
+    console.log(msg.toString());
+    //ws.send(`msg is = ${msg}`);
+  });
+})
 
 app.post('/plugindata', GetData);
 
@@ -41,9 +49,13 @@ function GetData(req, res){
 app.post('/question', GetQuestion);
 
 function GetQuestion(req, res){
-  console.log(req.body)
   jsondata = JSON.stringify(req.body);
   question = JSON.parse(jsondata);
+  wss.clients.forEach((client) => {
+    // Check that connect are open and still alive to avoid socket error
+    if (client.readyState === Websocket.OPEN) {
+      client.send(question);
+    }});
   res.send("POST Request Called");
 }
 

@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { WebsocketService } from "./websocket.service";
 import { Observable,Subject,map } from 'rxjs';
 
-const CHAT_URL = "ws://localhost:3000/";
+const CHAT_URL = "ws://localhost:8081/";
 
 export interface Message {
   title: string;
