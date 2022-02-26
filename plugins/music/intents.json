@@ -1,6 +1,6 @@
 [{
     "subject":"playMusic",
-    "sentences": ["Joue le son", "Joue une musique", "Joue la musique (.*)"],
+    "sentences": ["Joue le son", "Joue une musique", "Joue la musique (.*)", "Joue du"],
     "responses": ["je joue la musique"],
     "value": 0,
     "type":"action"

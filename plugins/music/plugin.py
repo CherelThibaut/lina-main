@@ -35,21 +35,20 @@ class PluginMusic(PluginDefault):
             nameMusic = sentence.split()
             lastWord = nameMusic[-1:]
             results = spotify.search(q=str(lastWord),limit=5)
-            json_string = "{ 'track' : ["
+            json_string = "{ @5track@5 : ["
             first = True
             for idx, track, in enumerate(results['tracks']['items']):
                 if (track['preview_url'] is not None) :
                     if(first):
-                        json_string += "{ 'name' : '"+str(track['name'])+"',"
+                        json_string += "{ @5name@5 : @5"+str(track['name'])+"@5,"
                         first = False
                     else:
-                        json_string += ",{ 'name' : '"+str(track['name'])+"',"
-                    json_string += " 'song' : '"+str(track['preview_url'])+"' }"
+                        json_string += ",{ @5name@5 : @5"+str(track['name'])+"@5,"
+                    json_string += " @5song@5 : @5"+str(track['preview_url'])+"@5 }"
             json_string += "]}"
-            json_string = json_string.replace("'",'"')
-            print(json_string)
+            json_string = json_string.replace('"'," ")
+            json_string = json_string.replace("@5",'"')
             r = requests.post('http://localhost:3000/plugindata', data=json_string, headers={"Content-Type":"application/json"})
-            print(r)
             return "Ok"
         
 
