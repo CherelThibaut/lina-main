@@ -27,6 +27,7 @@ const data = {
 jsondata = JSON.stringify(data)
 dataobject = JSON.parse(jsondata)
 
+
 app.ws('/', function(ws, req) {
   console.log(jsondata);
   ws.send(jsondata);
