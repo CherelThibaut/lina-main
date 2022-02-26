@@ -19,7 +19,6 @@ constructor(private dataservice:DataService) {
   dataservice.messages.subscribe(msg => {
   console.log("Response from websocket: " + msg);
   let track = {} as Tracksong;
-    track.artist = msg.message;
     track.title = msg.title;
     track.link = msg.song;
     this.msaapPlaylist.push(track);
