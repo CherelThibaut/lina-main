@@ -46,9 +46,10 @@ class PluginMusic(PluginDefault):
                         json_string += ",{ 'name' : '"+str(track['name'])+"',"
                     json_string += " 'song' : '"+str(track['preview_url'])+"' }"
             json_string += "]}"
-            json_object = json.dumps(json_string)
-            print(json_object)
-            r = requests.post('http://localhost:3000/plugindata', json_object)
+            json_string = json_string.replace("'",'"')
+            print(json_string)
+            r = requests.post('http://localhost:3000/plugindata', data=json_string, headers={"Content-Type":"application/json"})
+            print(r)
             return "Ok"
         
 
