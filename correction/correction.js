@@ -1,7 +1,6 @@
 // import express JS module into app 
 // and creates its variable. 
 var express = require('express');
-const { send } = require('process');
 var app = express();
 var expressWs = require('express-ws')(app);
 
@@ -12,23 +11,33 @@ app.listen(3000, function() {
     console.log('server running on port 3000'); 
 } ) 
 
-app.ws('/', function(ws, req) {
+/*app.ws('/', function(ws, req) {
     ws.on('message', function(msg) {
       console.log(msg);
     });
     console.log('socket', req.testing);
   });
+*/
+const data = {
+  name:"test",
+  message:"this is a message",
+  song:"https://p.scdn.co/mp3-preview/d69227aeef6ec7f07f446f592f2d1bb5bed2dd12?cid=d36e56f267a34540b2a1d973ac1edc93"
+}
 
-  app.ws('/test', function(ws, req) {
-    ws.send('message', function(msg) {
-      console.log(msg);
-    });
-  });
-  
+jsondata = JSON.stringify(data)
+dataobject = JSON.parse(jsondata)
+
+app.ws('/', function(ws, req) {
+  console.log(jsondata);
+  ws.send(jsondata);
+  console.log('socket', req.testing);
+});
+
 app.get('/plugindata', GetData);
 
 function GetData(data){
-  response = JSON.parse(data);
+  jsondata = JSON.stringify(data)
+  response = JSON.parse(jsondata);
   console.log(response.song);
 }
 // Function callName() is executed whenever

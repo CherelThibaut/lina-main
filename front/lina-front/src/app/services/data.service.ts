@@ -23,9 +23,10 @@ export class DataService {
   constructor(wsService: WebsocketService, private http: HttpClient) {
     this.messages = <Subject<Message>>wsService.connect(CHAT_URL).pipe(map(
       (response: MessageEvent): Message => {
+        console.log(response);
         let data = JSON.parse(response.data);
         return {
-          title: data.title,
+          title: data.name,
           message: data.message,
           song: data.song
         };
