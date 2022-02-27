@@ -46,8 +46,7 @@ function GetData(req, res){
 
 app.post('/correction', callCorrection); 
   
-function callCorrection(req, res) { 
-  console.log(req.body);
+function callCorrection(req, res) {
   jsondata = JSON.stringify(req.body);
   result = JSON.parse(jsondata);
   var spawn = require("child_process").spawn; 
@@ -56,7 +55,13 @@ function callCorrection(req, res) {
                                   result.question, 
                                   result.correction] ); 
   process.stdout.on('data', function(data) { 
-      res.send(data.toString()); 
+      res.send(data.toString());
+      wss.clients.forEach((client) => {
+        // Check that connect are open and still alive to avoid socket error
+        if (client.readyState === Websocket.OPEN) {
+          client.send(jsondata);
+        }
+      });
   } )
   
   process.stderr.on('data', (data) => {
