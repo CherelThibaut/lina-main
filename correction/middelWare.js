@@ -20,10 +20,8 @@ app.listen(3000, function() {
     console.log('server running on port 3000'); 
 } ) 
 
-//recupere les chansons
+//recupere les chansons et la question pose
 JsonString = {}
-//recupere la question poser
-question = {}
 
 /*app.ws('/', function(ws, req) {
   jsondata = JSON.stringify(JsonString)
@@ -46,19 +44,6 @@ function GetData(req, res){
   res.send("POST Request Called");
 }
 
-app.post('/question', GetQuestion);
-
-function GetQuestion(req, res){
-  jsondata = JSON.stringify(req.body);
-  question = JSON.parse(jsondata);
-  wss.clients.forEach((client) => {
-    // Check that connect are open and still alive to avoid socket error
-    if (client.readyState === Websocket.OPEN) {
-      client.send(question);
-    }});
-  res.send("POST Request Called");
-}
-
 app.post('/correction', callCorrection); 
   
 function callCorrection(req, res) { 
@@ -70,7 +55,6 @@ function callCorrection(req, res) {
   var process = spawn('python',["./correction.py", 
                                   result.question, 
                                   result.correction] ); 
-  console.log("call");
   process.stdout.on('data', function(data) { 
       res.send(data.toString()); 
   } )

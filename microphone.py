@@ -58,14 +58,9 @@ try:
                     result= json.loads(rec.Result())
                     if "spk" in result:
                         speaker= 0
-                        json_string = "{ @5question@5 : @5"+str(result["text"])+"@5 }"
-                        json_string = json_string.replace('"'," ")
-                        json_string = json_string.replace("@5",'"')
-                        requests.post('http://localhost:3000/question', data=json_string, headers={"Content-Type":"application/json"})
                         f = open('./correction/correction.json',)
                         data = json.load(f)
                         for i in data:
-                            print(str(i['question']))
                             if str(i['question']) == str(result["text"]):
                                 result["text"] = str(i['correction'])
                         f.close()

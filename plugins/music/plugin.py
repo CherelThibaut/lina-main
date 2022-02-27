@@ -34,7 +34,7 @@ class PluginMusic(PluginDefault):
         elif themeName =="playMusic":
             nameMusic = sentence.split()
             lastWord = nameMusic[-1:]
-            results = spotify.search(q=str(lastWord),limit=5)
+            results = spotify.search(q=str(lastWord),type="album,track")
             json_string = "{ @5track@5 : ["
             first = True
             for idx, track, in enumerate(results['tracks']['items']):
@@ -45,7 +45,7 @@ class PluginMusic(PluginDefault):
                     else:
                         json_string += ",{ @5name@5 : @5"+str(track['name'])+"@5,"
                     json_string += " @5song@5 : @5"+str(track['preview_url'])+"@5 }"
-            json_string += "]}"
+            json_string += "], @5question@5 : @5"+str(sentence)+"@5 }"
             json_string = json_string.replace('"'," ")
             json_string = json_string.replace("@5",'"')
             r = requests.post('http://localhost:3000/plugindata', data=json_string, headers={"Content-Type":"application/json"})
