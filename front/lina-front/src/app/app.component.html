@@ -1,9 +1,9 @@
-<ngx-audio-player [playlist]="msaapPlaylist" [displayTitle]="msaapDisplayTitle" [autoPlay]="false" 
+<ngx-audio-player [playlist]="msaapPlaylist" [displayTitle]="msaapDisplayTitle" [autoPlay]="true" 
     muted="muted" [displayPlaylist]="msaapDisplayPlayList" [pageSizeOptions]="msaapPageSizeOptions" (trackEnded)="onEnded($event)"
         [displayVolumeControls]="msaapDisplayVolumeControls" [displayRepeatControls]="msaapDisplayRepeatControls"
         [disablePositionSlider]="msaapDisablePositionSlider" [displayArtist]="msaapDisplayArtist" 
         [displayDuration]="msaapDisplayDuration" [expanded]="true"></ngx-audio-player>
 
-<input type="text" placeholder="Input utilisateur...">
-<input type="text" placeholder="Input IA..." disabled>
-<button class="btn-primary" (click)="sendMsg()">Envoyer</button>
+<input type="text" #uservalue placeholder="Input utilisateur...">
+<input type="text" #aivalue placeholder="Input IA...">
+<button class="btn-primary" (click)="sendMsg(uservalue.value, aivalue.value)">Envoyer</button>

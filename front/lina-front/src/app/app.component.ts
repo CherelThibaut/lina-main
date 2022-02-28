@@ -14,6 +14,7 @@ import { WebsocketService } from './services/websocket.service';
 export class AppComponent {
 
   msaapPlaylist: Track[] = [];
+  Correction: string[] = [];
 
 constructor(private dataservice:DataService) {
   dataservice.messages.subscribe(msg => {
@@ -26,15 +27,14 @@ constructor(private dataservice:DataService) {
 }
 
 private message = {
-  title: "tutorialedge",
-  message: "this is a test message",
-  song: "https://p.scdn.co/mp3-preview/c4a9dd0d7877c92696fed1ffe54218b79d7fda53?cid=d36e56f267a34540b2a1d973ac1edc93"
+  question :"",
+  reponse : ""
 };
 
-sendMsg() {
+sendMsg(value1:string, value2:string) {
+  this.message.question = value1;
+  this.message.reponse = value2;
   console.log("new message from client to websocket: ", this.message);
-  this.dataservice.messages.next(this.message);
-  this.message.message = "";
 }
 
 inMessagePre: any;

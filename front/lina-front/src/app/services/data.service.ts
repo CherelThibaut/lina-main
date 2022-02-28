@@ -10,6 +10,11 @@ export interface Message {
   song: string;
 }
 
+export interface Correction {
+  question:string;
+  reponse:string;
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -33,12 +38,4 @@ export class DataService {
       }
     ));
   }
-
-    getData(){
-      return this.http.get(this.local+'/correction/');
-    }
-
-    sendData(value1:string, value2:string){
-        this.http.get(this.local+`/correction/${value1}/${value2}`)
-    }
 }
