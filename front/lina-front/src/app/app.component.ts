@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef } from '@angular/core';
 import { Track } from 'ngx-audio-player';
 import { Tracksong } from './interfaces/track';
 import { DataService } from './services/data.service';
@@ -17,12 +17,15 @@ export class AppComponent {
   msaapPlaylist: Track[] = [];
   Correction: string[] = [];
 
+  value:string="";
+
 constructor(private dataservice:DataService, private http: HttpClient) {
   dataservice.messages.subscribe(msg => {
   console.log("Response from websocket: " + msg);
   let track = {} as Tracksong;
     track.title = msg.title;
     track.link = msg.song;
+    this.value = msg.question;
     this.msaapPlaylist.push(track);
   });
 }

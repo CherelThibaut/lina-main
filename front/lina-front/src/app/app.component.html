@@ -5,5 +5,5 @@
         [displayDuration]="msaapDisplayDuration" [expanded]="true"></ngx-audio-player>
 
 <input type="text" #uservalue placeholder="Input utilisateur...">
-<input type="text" #aivalue placeholder="Input IA...">
-<button class="btn-primary" (click)="sendMsg(uservalue.value, aivalue.value)">Envoyer</button>
+<input type="text" #aivalue placeholder="Input IA..." [value]="value">
+<button class="btn-primary" (click)="sendMsg(aivalue.value,uservalue.value)">Envoyer</button>

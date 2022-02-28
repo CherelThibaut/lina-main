@@ -8,6 +8,7 @@ const CHAT_URL = "ws://localhost:8081/";
 export interface Message {
   title: string;
   song: string;
+  question:string;
 }
 
 export interface Correction {
@@ -31,7 +32,8 @@ export class DataService {
         for (var i = 0; i < data[0].track.length; i++) {
           return {
             title: data[0].track[i].name,
-            song: data[0].track[i].song
+            song: data[0].track[i].song,
+            question : data[0].question
           }
         };
         return 0;
