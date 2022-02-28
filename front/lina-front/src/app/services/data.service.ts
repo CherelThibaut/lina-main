@@ -23,8 +23,7 @@ export class DataService {
     this.messages = <Subject<Message>>wsService.connect(CHAT_URL).pipe(map(
       (response: MessageEvent) => {
         let data = JSON.parse(response.data);
-        console.log(data);
-        for (var i = 0; i < data.track.length; i++) {
+        for (var i = 0; i < data[0].track.length; i++) {
           return {
             title: data[0].track[i].name,
             song: data[0].track[i].song

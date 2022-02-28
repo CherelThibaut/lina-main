@@ -21,7 +21,7 @@ app.listen(3000, function() {
 } ) 
 
 //recupere les chansons et la question pose
-JsonString = []
+JsonString = [{"track":[{"name":"R9R-LINE (feat. Damso)","song":"https://p.scdn.co/mp3-preview/18385cc2d8456867fb97244a1ea723ded6330775?cid=d36e56f267a34540b2a1d973ac1edc93"},{"name":"God Bless (feat. Damso)","song":"https://p.scdn.co/mp3-preview/35453a45bdf8b2ab0a2ca9a5acc2f79a9c187eaa?cid=d36e56f267a34540b2a1d973ac1edc93"},{"name":"R�ves bizarres (feat. Damso)","song":"https://p.scdn.co/mp3-preview/8ca70b6d5869fd1edd139eb63ed0a38c55aa0a20?cid=d36e56f267a34540b2a1d973ac1edc93"}],"question":"joue de la musique damso"}]
 
 /*app.ws('/', function(ws, req) {
   jsondata = JSON.stringify(JsonString)
@@ -39,7 +39,7 @@ wss.on('connection', (ws) => {
 app.post('/plugindata', GetData);
 
 function GetData(req, res){
-  JsonString = JSON.stringify(req.body);
+  //JsonString = JSON.stringify(req.body);
   res.send("POST Request Called");
   /*wss.clients.forEach((client) => {
     // Check that connect are open and still alive to avoid socket error
@@ -49,7 +49,8 @@ function GetData(req, res){
     }
   });*/
     wss.clients.forEach((client) => {
-      client.send(JsonString)
+      console.log(JsonString);
+      client.send(JSON.stringify(JsonString));
     });
 }
 
@@ -65,13 +66,6 @@ function callCorrection(req, res) {
                                   result.correction] ); 
   process.stdout.on('data', function(data) { 
       res.send(data.toString());
-      wss.clients.forEach((client) => {
-        // Check that connect are open and still alive to avoid socket error
-        if (client.readyState === Websocket.OPEN) {
-          console.log(JsonString)
-          client.send(JSON.stringify(JsonString));
-        }
-      });
   } )
   
   process.stderr.on('data', (data) => {
