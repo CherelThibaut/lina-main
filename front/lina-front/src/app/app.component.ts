@@ -3,6 +3,7 @@ import { Track } from 'ngx-audio-player';
 import { Tracksong } from './interfaces/track';
 import { DataService } from './services/data.service';
 import { WebsocketService } from './services/websocket.service';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-root',
@@ -16,7 +17,7 @@ export class AppComponent {
   msaapPlaylist: Track[] = [];
   Correction: string[] = [];
 
-constructor(private dataservice:DataService) {
+constructor(private dataservice:DataService, private http: HttpClient) {
   dataservice.messages.subscribe(msg => {
   console.log("Response from websocket: " + msg);
   let track = {} as Tracksong;
@@ -32,9 +33,11 @@ private message = {
 };
 
 sendMsg(value1:string, value2:string) {
-  this.message.question = value1;
-  this.message.reponse = value2;
-  console.log("new message from client to websocket: ", this.message);
+  const reponse = { question: value1,correction: value2}
+  const headers = { 'content-type': 'application/json'}  
+  const body=JSON.stringify(reponse);
+  console.log(body)
+  return this.http.post("http://localhost:3000/correction", body,{'headers':headers}).subscribe()
 }
 
 inMessagePre: any;
