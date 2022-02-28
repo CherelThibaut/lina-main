@@ -13,7 +13,7 @@ import { WebsocketService } from './services/websocket.service';
 
 export class AppComponent {
 
-  msaapPlaylist: Track[] = [];
+  //msaapPlaylist: Track[] = [];
 
 constructor(private dataservice:DataService) {
   dataservice.messages.subscribe(msg => {
@@ -68,7 +68,7 @@ ngOnInit(): void {
   msaapDisablePositionSlider = true;
     
   // Material Style Advance Audio Player Playlist
- /* msaapPlaylist: Track[] = [
+  msaapPlaylist: Track[] = [
     {
       title: 'Audio One Title',
       link: 'https://p.scdn.co/mp3-preview/d69227aeef6ec7f07f446f592f2d1bb5bed2dd12?cid=d36e56f267a34540b2a1d973ac1edc93',
@@ -87,7 +87,7 @@ ngOnInit(): void {
       artist: 'Audio Three Artist',
       //duration: 'Audio Three Duration in seconds'
     },
-  ];*/
+  ];
 
   onEnded(event:string) {
 
