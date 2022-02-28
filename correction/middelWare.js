@@ -39,16 +39,18 @@ wss.on('connection', (ws) => {
 app.post('/plugindata', GetData);
 
 function GetData(req, res){
-  jsondata = JSON.stringify(req.body);
-  JsonString = JSON.parse(jsondata);
+  JsonString = JSON.stringify(req.body);
   res.send("POST Request Called");
-  wss.clients.forEach((client) => {
+  /*wss.clients.forEach((client) => {
     // Check that connect are open and still alive to avoid socket error
     if (client.readyState === Websocket.OPEN) {
-      console.log(JsonString)
+      console.log("hello")
       client.send(JsonString);
     }
-  });
+  });*/
+    wss.clients.forEach((client) => {
+      client.send(JsonString)
+    });
 }
 
 app.post('/correction', callCorrection); 
