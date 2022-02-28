@@ -4,6 +4,6 @@
         [disablePositionSlider]="msaapDisablePositionSlider" [displayArtist]="msaapDisplayArtist" 
         [displayDuration]="msaapDisplayDuration" [expanded]="true"></ngx-audio-player>
 
-<input type="text" #uservalue placeholder="Input utilisateur...">
-<input type="text" #aivalue placeholder="Input IA..." [value]="value">
+<input type="text" #uservalue placeholder="Input utilisateur..." [value]="value">
+<input type="text" #aivalue placeholder="Input IA...">
 <button class="btn-primary" (click)="sendMsg(aivalue.value,uservalue.value)">Envoyer</button>
